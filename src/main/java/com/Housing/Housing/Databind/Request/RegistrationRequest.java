@@ -42,7 +42,7 @@ public class RegistrationRequest {
     }
 
     public UserRole getRole() {
-        return role;
+      return role;
     }
 
 }

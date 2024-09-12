@@ -1,12 +1,20 @@
 package com.Housing.Housing.Model;
 
+import com.Housing.Housing.Databind.Enums.UserRole;
+import com.Housing.Housing.Utils.BasicResponse;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @Table(name="verification")
+
 public class Verification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,55 +24,27 @@ public class Verification {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "time")
-    private LocalDate time;
-
     @Column(name = "expirydate")
-    private Date expirydate;
+    private LocalDateTime expirydate;
 
     @Column(name = "purpose")
     private String purpose;
 
+    @ManyToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
+
     public Verification() {
 
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
+//this keyword instantiates the class
+    public Verification(String code, LocalDateTime expirydate, String purpose, AppUser appUser) {
         this.code = code;
-    }
-
-    public LocalDate getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDate time) {
-        this.time = time;
-    }
-
-    public Date getExpirydate() {
-        return expirydate;
-    }
-
-    public void setExpirydate(Date expirydate) {
-        this.expirydate = expirydate;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
-    public Verification(String code, LocalDate time, Date expirydate, String purpose) {
-        this.code = code;
-        this.time = time;
         this.expirydate = expirydate;
         this.purpose = purpose;
+        this.appUser = appUser;
     }
+
+
+
 }

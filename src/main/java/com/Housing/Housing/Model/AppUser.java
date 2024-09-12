@@ -27,7 +27,7 @@ public class AppUser implements UserDetails {
     @Column(name="secondName")
     private String secondName;
 
-    @Column(name="emailAddress")
+    @Column(name="email_address")
     private String emailAddress;
 
     @Column(name="phoneNumber")
@@ -45,10 +45,8 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    //Relationship
-    @OneToOne (cascade = CascadeType.ALL)
-    private Verification verification;
 
+    //creating a constructor
     public AppUser(String firstName, String secondName, String emailAddress, String phoneNumber, String userName, String password, UserRole role) {
         this.firstName = firstName;
         this.secondName = secondName;
@@ -58,6 +56,7 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.role = role;
     }
+//Getters and setters ---(lombok library)
 
     public String getFirstName() {
         return firstName;
@@ -91,6 +90,26 @@ public class AppUser implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public UserRole getRole() {
         return role;
     }
@@ -98,6 +117,7 @@ public class AppUser implements UserDetails {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
