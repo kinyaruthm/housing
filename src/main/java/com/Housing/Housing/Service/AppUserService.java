@@ -1,10 +1,10 @@
 package com.Housing.Housing.Service;
 
-import com.Housing.Housing.Databind.Enums.UserRole;
+//import com.Housing.Housing.Databind.Enums.UserRole;
 import com.Housing.Housing.Databind.Request.LoginRequest;
 import com.Housing.Housing.Databind.Request.RegistrationRequest;
 import com.Housing.Housing.Model.AppUser;
-import com.Housing.Housing.Model.Verification;
+//import com.Housing.Housing.Model.Verification;
 import com.Housing.Housing.Repository.AppUserRepository;
 import com.Housing.Housing.Repository.VerificationRepository;
 import com.Housing.Housing.Utils.BasicResponse;
@@ -12,13 +12,13 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -90,7 +90,13 @@ public class AppUserService implements UserDetailsService {
         if(appUser.isEmpty())
         {
             return BasicResponse.Failure("user doesn't exist");
+        }
+        // Check if the user is referenced in the verification table
+        boolean isUserReferencedInVerification = verificationRepository.existsByAppUser(appUser.get());
 
+        // If the user is used in the verification table, return failure response
+        if (isUserReferencedInVerification) {
+            return BasicResponse.Failure("User is referenced in the verification table and cannot be deleted");
         }
        //deleting related records
         verificationRepository.deleteByAppUser(appUser.get());

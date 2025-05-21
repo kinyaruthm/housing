@@ -20,6 +20,7 @@ public interface AppUserRepository extends JpaRepository<AppUser,Long> {
     @Query("update AppUser a set a.role = ?1 where a.emailAddress = ?2")
     int updateRole(UserRole role, String emailAddress);
 
+    @Modifying
     @Query("update AppUser  a set a.enabled=?1 where a.emailAddress= ?2")
     int updateEnabled(boolean enabled, String emailAddress);
 

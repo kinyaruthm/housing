@@ -9,4 +9,6 @@ public interface VerificationRepository extends JpaRepository <Verification,Long
     Verification findByCode(String code);
 
     void deleteByAppUser(AppUser appUser);
+
+    boolean existsByAppUser(AppUser appUser);
 }

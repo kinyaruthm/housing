@@ -1,8 +1,8 @@
 package com.Housing.Housing.Configuration;
 
-import com.Housing.Housing.Service.AppUserService;
+//import com.Housing.Housing.Service.AppUserService;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

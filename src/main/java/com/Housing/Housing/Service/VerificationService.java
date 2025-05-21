@@ -59,7 +59,6 @@ public class VerificationService {
             }
             int update = appUserRepository.updateEnabled(true, user.get().getAppUser().getEmailAddress());
             if (update > 0) {
-                verificationRepository.delete(user.get());
                 return BasicResponse.OfSuccess("User verified");
             }
             return BasicResponse.Failure("Verification code not found");

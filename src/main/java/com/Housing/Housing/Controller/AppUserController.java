@@ -1,15 +1,18 @@
 package com.Housing.Housing.Controller;
 
 import com.Housing.Housing.Databind.Request.LoginRequest;
+import com.Housing.Housing.Databind.Request.PropertyRequest;
 import com.Housing.Housing.Databind.Request.RegistrationRequest;
-import com.Housing.Housing.Model.AppUser;
+//import com.Housing.Housing.Model.AppUser;
+import com.Housing.Housing.Model.Property;
 import com.Housing.Housing.Service.AppUserService;
+import com.Housing.Housing.Service.PropertyService;
 import com.Housing.Housing.Service.VerificationService;
 import com.Housing.Housing.Utils.BasicResponse;
-import jakarta.persistence.Basic;
+//import jakarta.persistence.Basic;
 import lombok.RequiredArgsConstructor;
-import org.apache.naming.factory.SendMailFactory;
-import org.aspectj.apache.bcel.classfile.Code;
+//import org.apache.naming.factory.SendMailFactory;
+//import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,6 +24,7 @@ import java.util.Map;
 public class AppUserController {
     private final AppUserService appUserService;
     private final VerificationService verificationService;
+    private final PropertyService propertyService;
 
     @PostMapping(path = "/adduser")
     public BasicResponse addUser(@RequestBody RegistrationRequest Request) {
@@ -31,6 +35,7 @@ public class AppUserController {
     public BasicResponse getUsers() {
         return appUserService.AppUserList();
     }
+    
 
     @GetMapping(path = "/getAuser")
     public BasicResponse getAUser(@RequestParam("email") String email) {
@@ -44,7 +49,7 @@ public class AppUserController {
     }
 
     @PostMapping(path = "/deleteUser")
-    public BasicResponse deleteUser(@RequestParam("email") String email) {
+    public BasicResponse deleteUser(@RequestParam("email") String email,@RequestParam("code")String code) {
         return appUserService.deleteUser(email);
     }
 
@@ -68,5 +73,11 @@ public class AppUserController {
     public BasicResponse login(@RequestBody LoginRequest loginRequest) {
         return appUserService.loginUser(loginRequest);
     }
+
+    @PostMapping(path="/property")
+    public BasicResponse AddProperty(@RequestBody PropertyRequest property){
+        return propertyService.addProperty(property);
+    }
+
 
 }
